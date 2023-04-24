@@ -8,7 +8,7 @@ the `qft.py` file is the file that defines the Quantum Fourier Transform. Given 
 
 
 #### qpe.py
-the `qpe.py` file is the file that defines the Quantum Phase EStimation. Given a number that is the number of qubits, this file returns the circuit of the QPE when executed. This circuite uses the Quantum Fourier Transform.
+the `qpe.py` file is the file that defines the Quantum Phase EStimation. Given a number that is the number of qubits, this file returns the circuit of the QPE when executed. This circuite uses the Quantum Fourier Transform. Currently if this file is executed, the output will be a circuit of 4 qubits that uses the T gate as unitary operator. This can be changed to any other operator (for one or more qubits) and other number of qubits for the circuit.
 
 ## Requirements
 In order to use this repository the needed requirements to be installed are:
