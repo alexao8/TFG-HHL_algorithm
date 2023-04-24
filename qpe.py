@@ -22,12 +22,16 @@ def myQFT(nqubits):
 def QPE(mqubits, operator, eigenvector):
     circuit = Circuit(mqubits+len(eigenvector))
 
-    for ev in range(len(eigenvector)):
-        if eigenvector[ev] == 1: circuit.add(gates.X(mqubits+ev))
+    for q in range(0,mqubits+len(eigenvector)):
+        if q < mqubits: circuit.add(gates.H(q))
+        elif eigenvector[q-mqubits] == 1: circuit.add(gates.X(q))
 
+    reps = 2**(mqubits-1)
     for q in range(mqubits):
-        circuit.add(gates.H(q))
-        circuit.add(operator(*range(0+mqubits, len(eigenvector)+mqubits)).controlled_by(q))
+        print(reps)
+        for i in range(reps):
+            circuit.add(operator(*range(0+mqubits, len(eigenvector)+mqubits)).controlled_by(q))
+        reps //= 2
 
     qft = myQFT(mqubits)
     iqft = qft.invert()
@@ -36,7 +40,6 @@ def QPE(mqubits, operator, eigenvector):
     return circuit
 
 def main():
-    print(3)
     qpe = QPE(3,gates.T, [1])
     print(qpe.draw())
 
