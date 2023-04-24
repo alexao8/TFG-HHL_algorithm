@@ -9,3 +9,13 @@ the `qft.py` file is the file that defines the Quantum Fourier Transform. Given 
 
 #### qpe.py
 the `qpe.py` file is the file that defines the Quantum Phase EStimation. Given a number that is the number of qubits, this file returns the circuit of the QPE when executed. This circuite uses the Quantum Fourier Transform.
+
+## Requirements
+In order to use this repository the needed requirements to be installed are:
+- `Pyhton3`
+- `Qibo`
+
+## Autor
+Alexandre Alemany Orfila
+
+[alexao8](https://github.com/alexao8)
