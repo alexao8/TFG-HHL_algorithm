@@ -42,16 +42,21 @@ def QPE1(mqubits, operator, eigenvector):
 def QPE(mqubits, operator, circuit):
     qpe = Circuit(mqubits+circuit.nqubits)
 
+    #The H gates are added to the firsts mqubits
     for q in range(0,mqubits):
-        if q < mqubits: qpe.add(gates.H(q))
+        if q < mqubits: qpe.add(gates.H(q))                  
     
+    #The circuit that gives the state that will be the input of the QPE is attached to the whole QPE circuit
     qpe.add(circuit.on_qubits(*range(mqubits,mqubits+circuit.nqubits)))
+
+    #The U gates are set
     reps = 2**(mqubits-1)
     for q in range(mqubits):
         for i in range(reps):
             qpe.add(operator(*range(mqubits, circuit.nqubits+mqubits)).controlled_by(q))
         reps //= 2
 
+    #Apply the IQFT
     qft = myQFT(mqubits)
     iqft = qft.invert()
     qpe.add(iqft.on_qubits(*range(0, mqubits)))
