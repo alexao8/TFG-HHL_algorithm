@@ -1,5 +1,5 @@
 # TFG-HHL_algorithm
-This repository contain the documentation and code of the Bachelor's thesis of Alex Aleman. This thesis studies the HHL algorithm and implements it using Qibo, an open-source python framework for programming quantum computers in a high level.
+This repository contains the documentation and code of the Bachelor's thesis of Alex Aleman. This thesis studies the HHL algorithm and implements it using Qibo, an open-source python framework for programming quantum computers in a high level.
 
 ## Files in this repository
 
