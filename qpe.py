@@ -19,7 +19,7 @@ def myQFT(nqubits):
 
     return circuit
 
-def QPE(mqubits, operator, eigenvector):
+def QPE1(mqubits, operator, eigenvector):
     circuit = Circuit(mqubits+len(eigenvector))
 
     for q in range(0,mqubits+len(eigenvector)):
@@ -28,7 +28,6 @@ def QPE(mqubits, operator, eigenvector):
 
     reps = 2**(mqubits-1)
     for q in range(mqubits):
-        print(reps)
         for i in range(reps):
             circuit.add(operator(*range(0+mqubits, len(eigenvector)+mqubits)).controlled_by(q))
         reps //= 2
@@ -39,9 +38,35 @@ def QPE(mqubits, operator, eigenvector):
 
     return circuit
 
+
+def QPE(mqubits, operator, circuit):
+    qpe = Circuit(mqubits+circuit.nqubits)
+
+    for q in range(0,mqubits):
+        if q < mqubits: qpe.add(gates.H(q))
+    
+    qpe.add(circuit.on_qubits(*range(mqubits,mqubits+circuit.nqubits)))
+    reps = 2**(mqubits-1)
+    for q in range(mqubits):
+        for i in range(reps):
+            qpe.add(operator(*range(mqubits, circuit.nqubits+mqubits)).controlled_by(q))
+        reps //= 2
+
+    qft = myQFT(mqubits)
+    iqft = qft.invert()
+    qpe.add(iqft.on_qubits(*range(0, mqubits)))
+
+    return qpe
+
 def main():
-    qpe = QPE(3,gates.T, [1])
+    x = Circuit(1)
+    x.add(gates.X(0))
+    qpe = QPE(3,gates.T, x)
+    qpe.add(gates.M(0,1,2,3))
+    result = qpe(nshots=100)
+
     print(qpe.draw())
+    print(result.frequencies(binary=True, registers=False))
 
 if __name__ == "__main__":
     main()
