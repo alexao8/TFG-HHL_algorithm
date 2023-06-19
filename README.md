@@ -17,9 +17,10 @@ The `hhl_example_paper.py` file implements an specific example of the HHL algori
 In order to use this repository the needed requirements to be installed are:
 - `Pyhton3`
 - `Qibo`
-They can be installed by running:
+
+Qibo can be installed by running:
 ```bash
-pip install -r requirements.txt
+pip install pip install qibo qibojit
 ```
 
 ## Autor
